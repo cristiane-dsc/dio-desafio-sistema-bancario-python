@@ -34,7 +34,7 @@ while True:
 
         valor_deposito = Decimal(input("\nInforme o valor que você deseja depositar\n=> "))
         if valor_deposito <= 0:
-            print("\nO valor depositado deve ser maior do que zero.")
+            print("\nFalha ao tentar realizar depósito. O valor depositado deve ser maior do que zero.")
         else:
             saldo = saldo + valor_deposito
             lista_depositos.append(valor_deposito)
@@ -47,9 +47,9 @@ while True:
             valor_saque = Decimal(input("\nInforme o valor que você deseja sacar\n=> "))
             
             if valor_saque <= 0:
-                print("\nO valor sacado deve ser maior do que zero.")
+                print("\nFalha ao tentar realizar saque. O valor sacado deve ser maior do que zero.")
             elif valor_saque > limite:
-                print("\nO valor que você está tentando sacar é maior do que o limite permitido. Tente sacar um valor menor.")
+                print("\nFalha ao tentar realizar saque. O valor que você está tentando sacar é maior do que o limite permitido. Tente sacar um valor menor.")
             else:
                 if valor_saque <= saldo:
                     saldo = saldo - valor_saque
@@ -57,9 +57,9 @@ while True:
                     numero_saques += 1
                     print("\nSaque realizado com sucesso.")
                 else:
-                    print("\nNão é possível realizar o saque por falta de saldo.")
+                    print("\nFalha ao tentar realizar saque. Não é possível completar a operação por falta de saldo.")
         else:
-            print("\nVocê atingiu a quantidade máxima de saques do dia.")
+            print("\nFalha ao tentar realizar saque. Você atingiu a quantidade máxima de saques do dia.")
 
     elif opcao == "e":
         print("Extrato")
