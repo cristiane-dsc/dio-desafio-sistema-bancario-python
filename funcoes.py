@@ -21,6 +21,7 @@ def criarUsuario():
 
 
 # Criar conta conrrente
+# Todos os argumentos são posicionais
 def criarContaCorrente(base_numero_conta, usuario_vinculado):
 
     conta = {}
@@ -36,6 +37,7 @@ def criarContaCorrente(base_numero_conta, usuario_vinculado):
 
 
 # Depositar
+# Todos os argumentos são posicionais
 def depositar(saldo, valor, lista_depositos):
 
     if valor <= 0:
@@ -49,8 +51,8 @@ def depositar(saldo, valor, lista_depositos):
 
 
 # Sacar
-# Dúvidas: de onde vem a info do numero_saques? e de saldo? e o valor? como chamar extrato() e usar lista_saques nela?
-def sacar(saldo, valor, numero_saques, lista_saques, LIMITE=500, LIMITE_SAQUES=3):
+# Todos os argumentos são nomeados
+def sacar(*, saldo, valor, numero_saques, lista_saques, LIMITE=500, LIMITE_SAQUES=3):
 
     if numero_saques < LIMITE_SAQUES:        
         if valor <= 0:
@@ -69,9 +71,10 @@ def sacar(saldo, valor, numero_saques, lista_saques, LIMITE=500, LIMITE_SAQUES=3
 
     return saldo, lista_saques
 
+
 # Verificar extrato
-def extrato(saldo, extrato="???"):
-    print("Extrato")
+# Argumentos posicionais: saldo // Argumentos noemados: lista_depositos e lista_saques
+def extrato(saldo, /, *, lista_depositos, lista_saques):
 
     print("\n"+"Depósitos".center(20,"*")+"\n")
     if len(lista_depositos) == 0:
@@ -89,3 +92,5 @@ def extrato(saldo, extrato="???"):
 
     print("\n"+"Saldo".center(20,"*")+"\n")
     print(f"R$ {saldo: .2f}")
+
+    return None
