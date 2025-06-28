@@ -1,4 +1,6 @@
 from decimal import Decimal
+from datetime import datetime
+import re
 
 
 # Criar usuário
@@ -8,19 +10,30 @@ def criarUsuario():
 
     print("Insira as informações solicitadas:\n")
     usuario["Nome"] = input("Nome completo: ")
-    usuario["Data de nascimento"] = input("Data de nascimento (dd/MM/aaaa): ")
-    usuario["CPF"] = input("CPF (apenas números): ")
-    logradouro = input("Rua: ")
-    numero = input("Nº: ")
-    bairro = input("Bairro: ")
-    cidade = input("Cidade: ")
-    estado = input("Estado (sigla): ")
-    usuario["Endereço"] = f"{logradouro}, {numero} - {bairro} - {cidade}/{estado}"
+    data_nascimento_raw = input("Data de nascimento (dd/MM/aaaa): ")
+    try:
+        usuario["Data de nascimento"] = datetime.strptime(data_nascimento_raw, "%d/%m/%Y")
+        data_valida = True
+    except ValueError:
+        print("Operação falhou: a data deve obedecer o formato dd/MM/aaaa.")
+        data_valida = False
+    if data_valida:
+        cpf_raw = input("CPF (apenas números): ")
+        usuario["CPF"] = re.sub(r'\D', '', cpf_raw)
+        if len(usuario["CPF"]) != 11:
+            print("Operação falhou: o CPF digitado é inválido.")
+            return False
+        else:
+            logradouro = input("Rua: ")
+            numero = input("Nº: ")
+            bairro = input("Bairro: ")
+            cidade = input("Cidade: ")
+            estado = input("Estado (sigla): ")
+            usuario["Endereço"] = f"{logradouro}, {numero} - {bairro} - {cidade}/{estado}"
+            return usuario
 
-    return usuario
 
-
-# Criar conta conrrente
+# Criar conta corrente
 # Todos os argumentos são posicionais
 def criarContaCorrente(base_numero_conta, usuario_vinculado):
 
@@ -73,7 +86,7 @@ def sacar(*, saldo, valor, numero_saques, lista_saques, LIMITE=500, LIMITE_SAQUE
 
 
 # Verificar extrato
-# Argumentos posicionais: saldo // Argumentos noemados: lista_depositos e lista_saques
+# Argumentos posicionais: saldo // Argumentos nomeados: lista_depositos e lista_saques
 def extrato(saldo, /, *, lista_depositos, lista_saques):
 
     print("\n"+"Depósitos".center(20,"*")+"\n")
