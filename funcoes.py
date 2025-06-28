@@ -34,7 +34,6 @@ def criarUsuario():
 
 
 # Criar conta corrente
-# Todos os argumentos são posicionais
 def criarContaCorrente(base_numero_conta, usuario_vinculado):
 
     conta = {}
@@ -50,8 +49,8 @@ def criarContaCorrente(base_numero_conta, usuario_vinculado):
 
 
 # Depositar
-# Todos os argumentos são posicionais
-def depositar(saldo, valor, lista_depositos):
+# Todos os argumentos são obrigatoriamente posicionais
+def depositar(saldo, valor, lista_depositos, /):
 
     if valor <= 0:
         print("\nFalha ao tentar realizar depósito. O valor depositado deve ser maior do que zero.")
